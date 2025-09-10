@@ -228,6 +228,7 @@ private:
         {
             std::uint8_t temp = readMemory(_programCounter);
             _programCounter++;
+            _cycleCount += 2; // base cycles
             if (!_flagNegative)
             {
                 int signedVal = temp;
@@ -248,6 +249,7 @@ private:
         {
             std::uint8_t temp = readMemory(_programCounter);
             _programCounter++;
+            _cycleCount += 2;
             if (_flagNegative)
             {
                 int signedVal = temp;
@@ -284,21 +286,16 @@ private:
         {
             std::uint8_t offset = readMemory(_programCounter);
             _programCounter++;
-
+            _cycleCount += 2;
             if (!_flagZero)
             {
                 // Sign-extend 8-bit offset
                 int8_t rel = static_cast<int8_t>(offset);
                 ushort oldPC = _programCounter;
                 _programCounter = static_cast<ushort>(_programCounter + rel);
-                _cycleCount += 3;
-
+                _cycleCount += 1;
                 if ((oldPC & 0xFF00) != (_programCounter & 0xFF00))
                     _cycleCount += 1;
-            }
-            else
-            {
-                _cycleCount += 2;
             }
         }
         break;
@@ -306,6 +303,7 @@ private:
         {
             std::uint8_t temp = readMemory(_programCounter);
             _programCounter++;
+            _cycleCount += 2;
             if (_flagZero)
             {
                 int signedVal = temp;
@@ -952,6 +950,7 @@ private:
         {
             std::uint8_t temp = readMemory(_programCounter);
             _programCounter++;
+            _cycleCount += 2;
             if (_flagOverflow)
             {
                 int signedVal = temp;
@@ -972,6 +971,7 @@ private:
         {
             std::uint8_t temp = readMemory(_programCounter);
             _programCounter++;
+            _cycleCount += 2;
             if (_flagCarry)
             {
                 int signedVal = temp;
@@ -992,6 +992,7 @@ private:
         {
             std::uint8_t temp = readMemory(_programCounter);
             _programCounter++;
+            _cycleCount += 2;
             if (!_flagCarry)
             {
                 int signedVal = temp;
@@ -1012,6 +1013,7 @@ private:
         {
             std::uint8_t temp = readMemory(_programCounter);
             _programCounter++;
+            _cycleCount += 2;
             if (!_flagOverflow)
             {
                 int signedVal = temp;
