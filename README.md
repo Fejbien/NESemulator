@@ -1,3 +1,3 @@
 # NES emulator with vulcan
 
-Based on the guidance from one and only [100th coin]([https://www.youtube.com/@100thCoin])
+Based on the guidance from one and only [100th coin](https://www.youtube.com/@100thCoin)
